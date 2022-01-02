@@ -1,0 +1,488 @@
+openapi: "3.0.0"
+info:
+  version: 2.0.0
+  title: DeepL API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: DeepL
+    description: DeepL API
+servers:
+  - url: https://api.deepl.com/v2
+paths:
+  /translate:
+    post:
+      operationId: translate
+      summary: Translate text
+      tags:
+        - DeepL
+      security:
+        - QueryApiKeyAuth: []
+      parameters:
+        - name: text
+          required: true
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          explode: true
+        - name: source_lang
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "BG" # Bulgarian
+              - "CS" # Czech
+              - "DA" # Danish
+              - "DE" # German
+              - "EL" # Greek
+              - "EN" # English
+              - "ES" # Spanish
+              - "ET" # Estonian
+              - "FI" # Finnish
+              - "FR" # French
+              - "HU" # Hungarian
+              - "IT" # Italian
+              - "JA" # Japanese
+              - "LT" # Lithuanian
+              - "LV" # Latvian
+              - "NL" # Dutch
+              - "PL" # Polish
+              - "PT" # Portuguese (all Portuguese varieties mixed)
+              - "RO" # Romanian
+              - "RU" # Russian
+              - "SK" # Slovak
+              - "SL" # Slovenian
+              - "SV" # Swedish
+              - "ZH" # Chinese
+        - name: target_lang
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "BG" # Bulgarian
+              - "CS" # Czech
+              - "DA" # Danish
+              - "DE" # German
+              - "EL" # Greek
+              - "EN" # English
+              - "ES" # Spanish
+              - "ET" # Estonian
+              - "FI" # Finnish
+              - "FR" # French
+              - "HU" # Hungarian
+              - "IT" # Italian
+              - "JA" # Japanese
+              - "LT" # Lithuanian
+              - "LV" # Latvian
+              - "NL" # Dutch
+              - "PL" # Polish
+              - "PT" # Portuguese (all Portuguese varieties mixed)
+              - "RO" # Romanian
+              - "RU" # Russian
+              - "SK" # Slovak
+              - "SL" # Slovenian
+              - "SV" # Swedish
+              - "ZH" # Chinese
+        - name: split_sentences
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "0"
+              - "1"
+              - "nonewlines"
+        - name: preserve_formatting
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "0"
+              - "1"
+        - name: formality
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "default"
+              - "more"
+              - "less"
+        - name: glossary_id
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: tag_handling
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "xml"
+        - name: non_splitting_tags
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: outline_detection
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "0"
+              - "1"
+        - name: splitting_tags
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: ignore_tags
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: translations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Translations"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /glossary-language-pairs:
+    get:
+      operationId: get glossary language pairs
+      summary: List language pairs supported by glossaries
+      tags:
+        - DeepL
+      security:
+        - HeaderApiKeyAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: language pairs supported by glossaries
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlossaryLanguagePairs"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /glossaries:
+    post:
+      operationId: create glossary
+      summary: Create a glossary
+      tags:
+        - DeepL
+      security:
+        - QueryApiKeyAuth: []
+      parameters:
+        - name: name
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: source_lang
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: target_lang
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: entries
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: entries_format
+          required: true
+          in: query
+          schema:
+            type: string
+            enum:
+              - "tsv"
+      responses:
+        '200':
+          description: language pairs supported by glossaries
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Glossary"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      operationId: get glossaries
+      summary: List glossaries
+      tags:
+        - DeepL
+      security:
+        - HeaderApiKeyAuth: []
+      responses:
+        '200':
+          description: glossaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Glossary"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /glossaries/{glossary_id}:
+    get:
+      operationId: get glossary
+      summary: Get a glossary
+      tags:
+        - DeepL
+      security:
+        - QueryApiKeyAuth: []
+      parameters:
+        - name: glossary_id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: glossary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Glossary"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      operationId: remove glossary
+      summary: Delete a glossary
+      tags:
+        - DeepL
+      security:
+        - HeaderApiKeyAuth: []
+      parameters:
+        - name: glossary_id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /glossaries/{glossary_id}/entries:
+    get:
+      operationId: get glossary entries
+      summary: List entries of a glossary
+      tags:
+        - DeepL
+      security:
+        - HeaderApiKeyAuth: []
+      parameters:
+        - name: glossary_id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: entries_format
+          required: true
+          in: query
+          schema:
+            type: string
+            enum:
+              - "text/tab-separated-values"
+      responses:
+        '200':
+          description: glossary entries
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /usage:
+    post:
+      operationId: get usage
+      summary: Get monitoring usage
+      tags:
+        - DeepL
+      security:
+        - QueryApiKeyAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: language pairs supported by glossaries
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usage"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /languages:
+    post:
+      operationId: get languages
+      summary: List supported languages
+      tags:
+        - DeepL
+      security:
+        - QueryApiKeyAuth: []
+      parameters:
+        - name: type
+          required: false
+          in: query
+          schema:
+            type: string
+            enum:
+              - "source"
+              - "target"
+      responses:
+        '200':
+          description: language pairs supported by glossaries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Language"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+components:
+  securitySchemes:
+    QueryApiKeyAuth:
+      type: apiKey
+      in: query
+      name: auth_key
+    HeaderApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    Translations:
+      required:
+        - translations
+      properties:
+        translations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Translation"
+    Translation:
+      required:
+        - detected_source_language
+        - text
+      properties:
+        detected_source_language:
+          type: string
+        text:
+          type: string
+    Glossary:
+      properties:
+        glossary_id:
+          type: string
+        name:
+          type: string
+        ready:
+          type: boolean
+        source_lang:
+          type: string
+        target_lang:
+          type: string
+        creation_time:
+          type: string
+        entry_count:
+          type: integer
+    GlossaryLanguagePairs:
+      required:
+        - supported_languages
+      properties:
+        supported_languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/GlossaryLanguagePair"
+    GlossaryLanguagePair:
+      required:
+        - source_lang
+        - target_lang
+      properties:
+        source_lang:
+          type: string
+        target_lang:
+          type: string
+    Usage:
+      properties:
+        character_count:
+          type: number
+        character_limit:
+          type: number
+        document_count:
+          type: number
+        document_limit:
+          type: number
+        team_document_count:
+          type: number
+        team_document_limit:
+          type: number
+    Language:
+      properties:
+        language:
+          type: string
+        name:
+          type: string
+        supports_formality:
+          type: string
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
