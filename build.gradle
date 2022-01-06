@@ -1,6 +1,8 @@
 buildscript {
 
     ext {
+        deepl4jVersion = "0.1.0.RELEASE"
+
         // Gradle plugin versions
         openapiGeneratorVersion = "5.3.1"
 
@@ -32,7 +34,7 @@ plugins {
 }
 
 group 'net.sharplab'
-version '0.1.0-SNAPSHOT'
+version "$deepl4jVersion"
 
 repositories {
     mavenCentral()
