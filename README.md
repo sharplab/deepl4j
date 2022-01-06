@@ -23,7 +23,7 @@ DeepL4J is not yet published to Maven Central. Please use JitPack snapshot repos
 <dependency>
     <groupId>com.github.sharplab</groupId>
     <artifactId>deepl4j</artifactId>
-    <version>master-SNAPSHOT</version>
+    <version>0.1.0.RELEASE</version>
 </dependency>
 ```
 
