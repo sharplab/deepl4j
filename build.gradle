@@ -101,6 +101,7 @@ tasks.withType(org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier = 'sources'
     from sourceSets.main.allSource
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
