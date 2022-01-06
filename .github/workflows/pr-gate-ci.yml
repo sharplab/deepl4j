@@ -1,0 +1,26 @@
+name: Pull Request Gate CI
+
+on: pull_request
+
+jobs:
+  matrix-test:
+    name: Test on java ${{ matrix.java_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        java_version: [8, 11, 17]
+        os: [ubuntu-latest, windows-latest] # , macOS-latest (remove macOS as it is not stable for now)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK ${{ matrix.java_version }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java_version }}
+          cache: 'gradle'
+
+      - name: Build with Gradle
+        run: ./gradlew check -x test
