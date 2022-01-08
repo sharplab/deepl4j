@@ -10,6 +10,7 @@ import net.sharplab.deepl4j.model.Usage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,21 +28,26 @@ public class DeepLApiTest {
 
     @Test
     public void translatePost_test() throws ApiException {
-        Translations response = target.translate(
-                Collections.singletonList("This is a pen."),
-                "EN",
-                "JA",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-        assertThat(response.getTranslations()).isNotEmpty();
+        try{
+            Translations response = target.translate(
+                    Arrays.asList("This is a pen.", "This is an apple."),
+                    "EN",
+                    "JA",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+            assertThat(response.getTranslations()).hasSize(2);
+        }
+        catch (ApiException e){
+            throw e;
+        }
     }
 
     @Test

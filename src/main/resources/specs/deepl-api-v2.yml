@@ -19,136 +19,111 @@ paths:
         - DeepL
       security:
         - QueryApiKeyAuth: []
-      parameters:
-        - name: text
-          required: true
-          in: query
-          schema:
-            type: array
-            items:
-              type: string
-          explode: true
-        - name: source_lang
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "BG" # Bulgarian
-              - "CS" # Czech
-              - "DA" # Danish
-              - "DE" # German
-              - "EL" # Greek
-              - "EN" # English
-              - "ES" # Spanish
-              - "ET" # Estonian
-              - "FI" # Finnish
-              - "FR" # French
-              - "HU" # Hungarian
-              - "IT" # Italian
-              - "JA" # Japanese
-              - "LT" # Lithuanian
-              - "LV" # Latvian
-              - "NL" # Dutch
-              - "PL" # Polish
-              - "PT" # Portuguese (all Portuguese varieties mixed)
-              - "RO" # Romanian
-              - "RU" # Russian
-              - "SK" # Slovak
-              - "SL" # Slovenian
-              - "SV" # Swedish
-              - "ZH" # Chinese
-        - name: target_lang
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "BG" # Bulgarian
-              - "CS" # Czech
-              - "DA" # Danish
-              - "DE" # German
-              - "EL" # Greek
-              - "EN" # English
-              - "ES" # Spanish
-              - "ET" # Estonian
-              - "FI" # Finnish
-              - "FR" # French
-              - "HU" # Hungarian
-              - "IT" # Italian
-              - "JA" # Japanese
-              - "LT" # Lithuanian
-              - "LV" # Latvian
-              - "NL" # Dutch
-              - "PL" # Polish
-              - "PT" # Portuguese (all Portuguese varieties mixed)
-              - "RO" # Romanian
-              - "RU" # Russian
-              - "SK" # Slovak
-              - "SL" # Slovenian
-              - "SV" # Swedish
-              - "ZH" # Chinese
-        - name: split_sentences
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "0"
-              - "1"
-              - "nonewlines"
-        - name: preserve_formatting
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "0"
-              - "1"
-        - name: formality
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "default"
-              - "more"
-              - "less"
-        - name: glossary_id
-          required: false
-          in: query
-          schema:
-            type: string
-        - name: tag_handling
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "xml"
-        - name: non_splitting_tags
-          required: false
-          in: query
-          schema:
-            type: string
-        - name: outline_detection
-          required: false
-          in: query
-          schema:
-            type: string
-            enum:
-              - "0"
-              - "1"
-        - name: splitting_tags
-          required: false
-          in: query
-          schema:
-            type: string
-        - name: ignore_tags
-          required: false
-          in: query
-          schema:
-            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding:
+              text:
+                explode: true
+            schema:
+              type: object
+              required:
+                - text
+                - source_lang
+                - target_lang
+              properties:
+                text:
+                  type: array
+                  items:
+                    type: string
+                source_lang:
+                  type: string
+                  enum:
+                    - "BG" # Bulgarian
+                    - "CS" # Czech
+                    - "DA" # Danish
+                    - "DE" # German
+                    - "EL" # Greek
+                    - "EN" # English
+                    - "ES" # Spanish
+                    - "ET" # Estonian
+                    - "FI" # Finnish
+                    - "FR" # French
+                    - "HU" # Hungarian
+                    - "IT" # Italian
+                    - "JA" # Japanese
+                    - "LT" # Lithuanian
+                    - "LV" # Latvian
+                    - "NL" # Dutch
+                    - "PL" # Polish
+                    - "PT" # Portuguese (all Portuguese varieties mixed)
+                    - "RO" # Romanian
+                    - "RU" # Russian
+                    - "SK" # Slovak
+                    - "SL" # Slovenian
+                    - "SV" # Swedish
+                    - "ZH" # Chinese
+                target_lang:
+                  type: string
+                  enum:
+                    - "BG" # Bulgarian
+                    - "CS" # Czech
+                    - "DA" # Danish
+                    - "DE" # German
+                    - "EL" # Greek
+                    - "EN" # English
+                    - "ES" # Spanish
+                    - "ET" # Estonian
+                    - "FI" # Finnish
+                    - "FR" # French
+                    - "HU" # Hungarian
+                    - "IT" # Italian
+                    - "JA" # Japanese
+                    - "LT" # Lithuanian
+                    - "LV" # Latvian
+                    - "NL" # Dutch
+                    - "PL" # Polish
+                    - "PT" # Portuguese (all Portuguese varieties mixed)
+                    - "RO" # Romanian
+                    - "RU" # Russian
+                    - "SK" # Slovak
+                    - "SL" # Slovenian
+                    - "SV" # Swedish
+                    - "ZH" # Chinese
+                split_sentences:
+                  type: string
+                  enum:
+                    - "0"
+                    - "1"
+                    - "nonewlines"
+                preserve_formatting:
+                  type: string
+                  enum:
+                    - "0"
+                    - "1"
+                formality:
+                  type: string
+                  enum:
+                    - "default"
+                    - "more"
+                    - "less"
+                glossary_id:
+                  type: string
+                tag_handling:
+                  type: string
+                  enum:
+                    - "xml"
+                non_splitting_tags:
+                  type: string
+                outline_detection:
+                  type: string
+                  enum:
+                    - "0"
+                    - "1"
+                splitting_tags:
+                  type: string
+                ignore_tags:
+                  type: string
       responses:
         '200':
           description: translations
