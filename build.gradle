@@ -7,7 +7,7 @@ buildscript {
         // Library versions
         findbugsJsr305Version = "3.0.2"
         swaggerAnnotationsVersion = "1.6.4"
-        jacksonVersion = "2.13.1"
+        jacksonVersion = "2.13.2"
         jacksonDatabindNullableVersion = "0.2.2"
         jakartaAnnotationVersion = "2.0.0"
         httpclientVersion = "4.5.13"
