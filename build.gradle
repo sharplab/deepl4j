@@ -2,7 +2,7 @@ buildscript {
 
     ext {
         // Gradle plugin versions
-        openapiGeneratorVersion = "5.4.0"
+        openapiGeneratorVersion = "6.0.0"
 
         // Library versions
         findbugsJsr305Version = "3.0.2"
