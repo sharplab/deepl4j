@@ -312,35 +312,31 @@ paths:
       tags:
         - DeepL
       security:
-        - QueryApiKeyAuth: []
-      parameters:
-        - name: name
-          required: true
-          in: query
-          schema:
-            type: string
-        - name: source_lang
-          required: true
-          in: query
-          schema:
-            type: string
-        - name: target_lang
-          required: true
-          in: query
-          schema:
-            type: string
-        - name: entries
-          required: true
-          in: query
-          schema:
-            type: string
-        - name: entries_format
-          required: true
-          in: query
-          schema:
-            type: string
-            enum:
-              - "tsv"
+        - HeaderApiKeyAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - name
+                - source_lang
+                - target_lang
+                - entries
+                - entries_format
+              properties:
+                name:
+                  type: string
+                source_lang:
+                  type: string
+                target_lang:
+                  type: string
+                entries:
+                  type: string
+                entries_format:
+                  type: string
+                  enum:
+                    - "tsv"
       responses:
         '200':
           description: language pairs supported by glossaries
