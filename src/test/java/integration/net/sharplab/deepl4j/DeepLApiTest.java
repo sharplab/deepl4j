@@ -31,8 +31,8 @@ public class DeepLApiTest {
         try{
             Translations response = target.translateTexts(
                     Arrays.asList("This is a pen.", "This is an apple."),
-                    "EN",
                     "JA",
+                    null,
                     null,
                     null,
                     null,
