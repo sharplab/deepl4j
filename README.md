@@ -57,8 +57,8 @@ git clone https://github.com/sharplab/deepl4j
         try {
             Translations response = deepLApi.translate(
                     Collections.singletonList("This is a pen."),
-                    "EN",
                     "JA",
+                    null, //null to detect source_lang
                     null,
                     null,
                     null,

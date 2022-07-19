@@ -26,7 +26,6 @@ paths:
               type: object
               required:
                 - text
-                - source_lang
                 - target_lang
               properties:
                 text:
@@ -180,7 +179,7 @@ paths:
               - "SV" # Swedish
               - "ZH" # Chinese
         - name: target_lang
-          required: false
+          required: true
           in: query
           schema:
             type: string
