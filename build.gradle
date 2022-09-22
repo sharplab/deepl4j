@@ -12,7 +12,7 @@ buildscript {
         jakartaAnnotationVersion = "2.1.1"
         httpclientVersion = "4.5.13"
 
-        junitVersion = "5.9.0"
+        junitVersion = "5.9.1"
         assertjVersion = "3.23.1"
     }
 
