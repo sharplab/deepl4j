@@ -1,5 +1,7 @@
 # DeepL4J
 
+**Since Official [deepl-java](https://github.com/DeepLcom/deepl-java) project is released, this unofficial project is archived.**
+
 
 [![Actions Status](https://github.com/sharplab/deepl4j/workflows/CI/badge.svg)](https://github.com/sharplab/deepl4j/actions)
 [![license](https://img.shields.io/github/license/sharplab/deepl4j)](https://github.com/sharplab/deepl4j/blob/master/LICENSE.txt)
